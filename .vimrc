@@ -7,6 +7,38 @@ set shell=/bin/bash
 " possible, as it has side effects.
 set nocompatible "required
 
+
+" PLUGINS {{{
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin('~/.vim/bundle/')
+
+Plugin 'VundleVim/Vundle.vim' "allowing vundle to manage itself
+Plugin 'Yggdroot/indentLine' "display indent lines for every indentation level (spaces)
+Plugin 'francoiscabrol/ranger.vim' "opens ranger while searching for files
+Plugin 'junegunn/fzf' "fuzzyfinder base plugin
+Plugin 'junegunn/fzf.vim' "fuzzyfinder plugin
+Plugin 'itchyny/lightline.vim' "replace statusline
+Plugin 'terryma/vim-multiple-cursors' "creates multiple cursors
+Plugin 'tpope/vim-surround' "plugin to help surround text with brackets
+Plugin 'tpope/vim-repeat' "plugin to repeat surround maps using '.'
+Plugin 'scrooloose/nerdtree' "filetree
+Plugin 'tpope/vim-fugitive'
+Plugin 'HenryNewcomer/vim-theme-papaya' "use papaya colorscheme
+
+call vundle#end() " required
+
+" ========= Plugin configs =========
+
+let g:ranger_replace_netrw = 1 "Open ranger when vim opens a directory
+map ; :Files<cr>
+set laststatus=2 "replace statusline
+nnoremap <C-o> :NERDTreeToggle<cr>
+
+" }}}
+
+
 " RICE {{{
 
 " ========= Basic Settings =========
@@ -39,7 +71,7 @@ set ignorecase "case insensitive searching (unless specified)
 set smartcase "case sensitive search when caps used
 set incsearch "highlight search hits while typing
 set hlsearch "highlight search hits
-nnoremap <silent><leader> :nohlsearch<cr>
+nnoremap <silent><leader>m :nohlsearch<cr>
 
 
 " ========= Indentation =========
@@ -61,37 +93,9 @@ colorscheme papaya
 
 " }}}
 
-" PLUGINS {{{
-
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin('~/.vim/bundle/')
-
-Plugin 'VundleVim/Vundle.vim' "allowing vundle to manage itself
-Plugin 'Yggdroot/indentLine' "display indent lines for every indentation level (spaces)
-Plugin 'francoiscabrol/ranger.vim' "opens ranger while searching for files
-Plugin 'junegunn/fzf' "fuzzyfinder base plugin
-Plugin 'junegunn/fzf.vim' "fuzzyfinder plugin
-Plugin 'itchyny/lightline.vim' "replace statusline
-Plugin 'terryma/vim-multiple-cursors' "creates multiple cursors
-Plugin 'tpope/vim-surround' "plugin to help surround text with brackets
-Plugin 'tpope/vim-repeat' "plugin to repeat surround maps using '.'
-Plugin 'scrooloose/nerdtree' "filetree
-Plugin 'tpope/vim-fugitive'
-
-call vundle#end() " required
-
-" ========= Plugin configs =========
-
-let g:ranger_replace_netrw = 1 "Open ranger when vim opens a directory
-map ; :Files<cr>
-set laststatus=2 "replace statusline
-nnoremap <C-o> :NERDTreeToggle<cr>
-
-" }}}
 
 " Re-mappings {{{
-let mapleader = ' ' "leader - ( Spacebar )
+let mapleader = "\<space>" "leader - ( Spacebar )
 
 " Enter key creats new line in normal mode
 nnoremap <CR> o<Esc>
@@ -104,6 +108,7 @@ nnoremap N Nzz
 nnoremap Y y$
 
 " }}}
+
 
 " VIMSCRIPT -------------------------------------------------------------- {{{
 
@@ -135,6 +140,7 @@ autocmd InsertLeave * call ToggleRelativeOn()
 autocmd BufWritePost config.h,config.def.h !sudo make install
 
 " }}}
+
 
 "to configure statusline (only works at bottom of the file)
 set noshowmode "hide the old mode display
