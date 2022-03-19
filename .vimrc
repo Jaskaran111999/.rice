@@ -71,7 +71,6 @@ set ignorecase "case insensitive searching (unless specified)
 set smartcase "case sensitive search when caps used
 set incsearch "highlight search hits while typing
 set hlsearch "highlight search hits
-nnoremap <silent><leader>m :nohlsearch<cr>
 
 
 " ========= Indentation =========
@@ -106,6 +105,9 @@ nnoremap N Nzz
 
 " Yank from cursor to the end of line.
 nnoremap Y y$
+
+" Turn off highlight manually
+nnoremap <silent><leader>m :nohlsearch<CR>
 
 " }}}
 
