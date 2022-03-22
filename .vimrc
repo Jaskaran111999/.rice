@@ -7,7 +7,6 @@ set shell=/bin/bash
 " possible, as it has side effects.
 set nocompatible "required
 
-
 " PLUGINS {{{
 
 " set the runtime path to include Vundle and initialize
@@ -16,16 +15,13 @@ call vundle#begin('~/.vim/bundle/')
 
 Plugin 'VundleVim/Vundle.vim' "allowing vundle to manage itself
 Plugin 'Yggdroot/indentLine' "display indent lines for every indentation level (spaces)
-Plugin 'francoiscabrol/ranger.vim' "opens ranger while searching for files
 Plugin 'junegunn/fzf' "fuzzyfinder base plugin
 Plugin 'junegunn/fzf.vim' "fuzzyfinder plugin
 Plugin 'itchyny/lightline.vim' "replace statusline
-Plugin 'terryma/vim-multiple-cursors' "creates multiple cursors
 Plugin 'tpope/vim-surround' "plugin to help surround text with brackets
 Plugin 'tpope/vim-repeat' "plugin to repeat surround maps using '.'
-Plugin 'scrooloose/nerdtree' "filetree
-Plugin 'tpope/vim-fugitive'
 Plugin 'HenryNewcomer/vim-theme-papaya' "use papaya colorscheme
+Plugin 'airblade/vim-gitgutter' "git-gutter vim 
 
 call vundle#end() " required
 
@@ -36,10 +32,44 @@ map ; :Files<cr>
 set laststatus=2 "replace statusline
 nnoremap <C-o> :NERDTreeToggle<cr>
 
+let g:lightline = {
+    \ 'active': {
+    \   'left': [ [ 'modified', 'mode' ], [ 'absolutepath' ] ],
+    \   'right': [ [ 'filetype' ], [ 'gitstatus' ] ]
+    \ },
+    \ 'component_function': {
+    \   'gitstatus': 'GitStatus'
+    \ }
+  \ }
+
+" ========= Git Gutter  =========
+
+set signcolumn=yes "always show gitgutter sign column
+silent! call repeat#set("\<Plug>vim-gitgutter", v:count) "enable use of '.' for plugin mappings
+
+"add spacing
+let g:gitgutter_sign_added = '\ \+'
+let g:gitgutter_sign_modified = '\ \~'
+let g:gitgutter_sign_removed = '\ \-'
+
+colorscheme papaya
+
+"customize gitgutter colors
+highlight clear SignColumn
+highlight clear GitGutterAdd
+highlight clear GitGutterChange
+highlight clear GitGutterRemove
+highlight SignColumn ctermbg=234
+highlight GitGutterAdd ctermfg=119 ctermbg=234
+highlight GitGutterChange ctermfg=220 ctermbg=234
+highlight GitGutterDelete ctermfg=160 ctermbg=234
+highlight CursorLineNr ctermfg=15 ctermbg=236
+
 " }}}
 
 
 " RICE {{{
+
 
 " ========= Basic Settings =========
 set encoding=UTF-8 "for vim devicons to work
@@ -49,7 +79,8 @@ set complete=.,w,b,u,t " scan all buffers and include tags
 set display=lastline " display as much as possible of a line
 set formatoptions=tcqj " auto-wrap text, better comment formatting
 set number "turn line numbers on
-set numberwidth=6 "increase width of number column
+set paste "allows to paste into vim without ruining indentation
+set numberwidth=5 "increase width of number column
 set cursorline "highlight the current line
 set splitright "open new split panes to the right and bottom
 set list listchars=tab:\ \ ,eol:·,nbsp:+ "display end of line with dots
@@ -86,9 +117,6 @@ set linebreak "dont break words when wrapping lines
 set showmatch "highlight matching paired delimiter
 set showcmd "display incomplete commands
 
-
-" ========== Colorscheme =========
-colorscheme papaya
 
 " }}}
 
@@ -131,6 +159,12 @@ function! ToggleRelativeOn()
   set rnu!
   set nu
 endfunction
+
+"Fetch number of changes for lightline
+function! GitStatus()
+  let [a,m,r] = GitGutterGetHunkSummary()
+    return printf('+%d ~%d -%d', a, m, r)
+    endfunction
 
 " ======= Auto commands =======
 autocmd FocusLost * call ToggleRelativeOn()
