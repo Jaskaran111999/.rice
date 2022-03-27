@@ -22,15 +22,14 @@ Plugin 'tpope/vim-surround' "plugin to help surround text with brackets
 Plugin 'tpope/vim-repeat' "plugin to repeat surround maps using '.'
 Plugin 'HenryNewcomer/vim-theme-papaya' "use papaya colorscheme
 Plugin 'airblade/vim-gitgutter' "git-gutter vim 
+Plugin 'wfxr/minimap.vim' "blazing fast minimap
 
 call vundle#end() " required
 
 " ========= Plugin configs =========
 
-let g:ranger_replace_netrw = 1 "Open ranger when vim opens a directory
 map ; :Files<cr>
 set laststatus=2 "replace statusline
-nnoremap <C-o> :NERDTreeToggle<cr>
 
 let g:lightline = {
     \ 'active': {
@@ -43,14 +42,20 @@ let g:lightline = {
   \ }
 
 " ========= Git Gutter  =========
-
 set signcolumn=yes "always show gitgutter sign column
 silent! call repeat#set("\<Plug>vim-gitgutter", v:count) "enable use of '.' for plugin mappings
 
 "add spacing
-let g:gitgutter_sign_added = '\ \+'
-let g:gitgutter_sign_modified = '\ \~'
-let g:gitgutter_sign_removed = '\ \-'
+let g:gitgutter_sign_added = '++'
+let g:gitgutter_sign_modified = '~~'
+let g:gitgutter_sign_removed = '--'
+
+" ========= Minimap  =========
+let g:minimap_width = 15
+let g:minimap_auto_start = 1
+let g:minimap_auto_start_win_enter = 1
+let g:minimap_highlight_search = 1
+let g:minimap_git_colors = 1
 
 colorscheme papaya
 
@@ -85,6 +90,8 @@ set cursorline "highlight the current line
 set splitright "open new split panes to the right and bottom
 set list listchars=tab:\ \ ,eol:·,nbsp:+ "display end of line with dots
 set matchpairs+=<:> "HTML editing
+set fillchars+=vert:\ 
+
 
 filetype on "try to detect filetype
 filetype plugin on "Enable plugins detect filetype
