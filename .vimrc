@@ -29,6 +29,7 @@ Plugin 'ap/vim-css-color' "show colors for hex color values
 call vundle#end() " required
 
 " ========= Plugin configs =========
+colorscheme papaya
 
 map ; :Files<cr>
 set laststatus=2 "replace statusline
@@ -45,12 +46,13 @@ let g:lightline = {
 
 " ========= Git Gutter  =========
 set signcolumn=yes "always show gitgutter sign column
+set updatetime=60 "reduce the time vim waits before writing to swap file and makes signs appear faster
 silent! call repeat#set("\<Plug>vim-gitgutter", v:count) "enable use of '.' for plugin mappings
 
-"add spacing
 let g:gitgutter_sign_added = '++'
 let g:gitgutter_sign_modified = '~~'
 let g:gitgutter_sign_removed = '--'
+let g:gitgutter_set_sign_backgrounds = 1
 
 " ========= Minimap  =========
 let g:minimap_width = 15
@@ -59,18 +61,23 @@ let g:minimap_auto_start_win_enter = 1
 let g:minimap_highlight_search = 1
 let g:minimap_git_colors = 1
 
-colorscheme papaya
-
-"customize gitgutter colors
-highlight clear SignColumn
-highlight clear GitGutterAdd
-highlight clear GitGutterChange
-highlight clear GitGutterRemove
-highlight SignColumn ctermbg=234
-highlight GitGutterAdd ctermfg=119 ctermbg=234
-highlight GitGutterChange ctermfg=220 ctermbg=234
-highlight GitGutterDelete ctermfg=160 ctermbg=234
+" ========= Colors  =========
+"customize gitgutter colors for papaya
+highlight! link SignColumn LineNr
 highlight CursorLineNr ctermfg=15 ctermbg=236
+
+highlight DiffAdd ctermfg=119 ctermbg=235
+highlight DiffChange ctermfg=220 ctermbg=235
+highlight DiffDelete ctermfg=160 ctermbg=235
+highlight DiffText ctermfg=160 ctermbg=235
+
+highlight GitGutterAdd ctermfg=119 ctermbg=235
+highlight GitGutterChange ctermfg=220 ctermbg=235
+highlight GitGutterDelete ctermfg=160 ctermbg=235
+
+autocmd BufReadPost * highlight minimapDiffAdded ctermfg=119 ctermbg=235
+autocmd BufReadPost * highlight minimapDiffLine ctermfg=220 ctermbg=235
+autocmd BufReadPost * highlight minimapDiffRemoved ctermfg=160 ctermbg=235
 
 " }}}
 
@@ -136,15 +143,26 @@ let mapleader = "\<space>" "leader - ( Spacebar )
 " Enter key creats new line in normal mode
 nnoremap <CR> o<Esc>
 
-" center cursor vertically when searching
-nnoremap n nzz
-nnoremap N Nzz
+" center cursor vertically when searching 'zv' to open fold
+nnoremap n nzzzv
+nnoremap N Nzzzv
+nnoremap J mzJ`z
+
+" for jumplist
+nnoremap <expr> j (v:count > 5 ? "m'" . v:count : "") . 'j'
+nnoremap <expr> k (v:count > 5 ? "m'" . v:count : "") . 'k'
+
+"move lines up or down
+nnoremap <leader>j :m .+1<CR>==
+nnoremap <leader>k :m .-2<CR>==
+vnoremap <leader>j :m '>+1<CR>gv=gv
+vnoremap <leader>k :m '>-2<CR>gv=gv
 
 " Yank from cursor to the end of line.
 nnoremap Y y$
 
 " Turn off highlight manually
-nnoremap <silent><leader>m :nohlsearch<CR>
+nnoremap <silent><leader>m :nohlsearch<CR>:call minimap#vim#ClearColorSearch()<CR>
 
 " }}}
 
@@ -153,8 +171,8 @@ nnoremap <silent><leader>m :nohlsearch<CR>
 
 " Enable the marker method of folding.
 augroup filetype_vim
-    autocmd!
-    autocmd FileType vim setlocal foldmethod=marker
+  autocmd!
+  autocmd FileType vim setlocal foldmethod=marker
 augroup END
 
 " ========== Functions ===========
@@ -172,8 +190,8 @@ endfunction
 "Fetch number of changes for lightline
 function! GitStatus()
   let [a,m,r] = GitGutterGetHunkSummary()
-    return printf('+%d ~%d -%d', a, m, r)
-    endfunction
+  return printf('+%d ~%d -%d', a, m, r)
+endfunction
 
 " ======= Auto commands =======
 autocmd FocusLost * call ToggleRelativeOn()
@@ -181,11 +199,7 @@ autocmd FocusGained * call ToggleRelativeOn()
 autocmd InsertEnter * call ToggleRelativeOn()
 autocmd InsertLeave * call ToggleRelativeOn()
 
-" Recompile suckless programs automatically
-autocmd BufWritePost config.h,config.def.h !sudo make install
-
 " }}}
-
 
 "to configure statusline (only works at bottom of the file)
 set noshowmode "hide the old mode display
