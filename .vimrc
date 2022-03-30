@@ -24,6 +24,7 @@ Plugin 'HenryNewcomer/vim-theme-papaya' "use papaya colorscheme
 Plugin 'airblade/vim-gitgutter' "git-gutter vim 
 Plugin 'wfxr/minimap.vim' "blazing fast minimap
 Plugin 'hashivim/vim-terraform' "HCL syntax highlighting and tab completion
+Plugin 'ap/vim-css-color' "show colors for hex color values
 
 call vundle#end() " required
 
