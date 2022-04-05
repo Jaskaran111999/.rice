@@ -20,7 +20,7 @@ Plugin 'junegunn/fzf.vim' "fuzzyfinder plugin
 Plugin 'itchyny/lightline.vim' "replace statusline
 Plugin 'tpope/vim-surround' "plugin to help surround text with brackets
 Plugin 'tpope/vim-repeat' "plugin to repeat surround maps using '.'
-Plugin 'HenryNewcomer/vim-theme-papaya' "use papaya colorscheme
+Plugin 'dracula/vim', {'name': 'dracula'} "use dracula colorscheme
 Plugin 'airblade/vim-gitgutter' "git-gutter vim 
 Plugin 'wfxr/minimap.vim' "blazing fast minimap
 Plugin 'hashivim/vim-terraform' "HCL syntax highlighting and tab completion
@@ -29,12 +29,16 @@ Plugin 'ap/vim-css-color' "show colors for hex color values
 call vundle#end() " required
 
 " ========= Plugin configs =========
-colorscheme papaya
+colorscheme dracula
+
+let g:dracula_colorterm = 0
+let g:dracula_italic = 0
 
 map ; :Files<cr>
 set laststatus=2 "replace statusline
 
 let g:lightline = {
+    \ 'colorscheme': 'dracula',
     \ 'active': {
     \   'left': [ [ 'modified', 'mode' ], [ 'absolutepath' ] ],
     \   'right': [ [ 'filetype' ], [ 'gitstatus' ] ]
@@ -64,20 +68,20 @@ let g:minimap_git_colors = 1
 " ========= Colors  =========
 "customize gitgutter colors for papaya
 highlight! link SignColumn LineNr
-highlight CursorLineNr ctermfg=15 ctermbg=236
+"highlight CursorLineNr ctermfg=15 ctermbg=236
 
-highlight DiffAdd ctermfg=119 ctermbg=235
-highlight DiffChange ctermfg=220 ctermbg=235
-highlight DiffDelete ctermfg=160 ctermbg=235
-highlight DiffText ctermfg=160 ctermbg=235
+highlight DiffAdd ctermfg=119
+highlight DiffChange ctermfg=220
+highlight DiffDelete ctermfg=160
+highlight DiffText ctermfg=160
 
-highlight GitGutterAdd ctermfg=119 ctermbg=235
-highlight GitGutterChange ctermfg=220 ctermbg=235
-highlight GitGutterDelete ctermfg=160 ctermbg=235
+"highlight GitGutterAdd ctermfg=119 ctermbg=235
+"highlight GitGutterChange ctermfg=220 ctermbg=235
+"highlight GitGutterDelete ctermfg=160 ctermbg=235
 
-autocmd BufReadPost * highlight minimapDiffAdded ctermfg=119 ctermbg=235
-autocmd BufReadPost * highlight minimapDiffLine ctermfg=220 ctermbg=235
-autocmd BufReadPost * highlight minimapDiffRemoved ctermfg=160 ctermbg=235
+autocmd BufReadPost * highlight minimapDiffAdded ctermfg=119
+autocmd BufReadPost * highlight minimapDiffLine ctermfg=220
+autocmd BufReadPost * highlight minimapDiffRemoved ctermfg=160
 
 " }}}
 
@@ -89,6 +93,7 @@ autocmd BufReadPost * highlight minimapDiffRemoved ctermfg=160 ctermbg=235
 set encoding=UTF-8 "for vim devicons to work
 set autoread "Reload file changes outside vim
 set autoindent
+syntax enable
 set complete=.,w,b,u,t " scan all buffers and include tags
 set display=lastline " display as much as possible of a line
 set formatoptions=tcqj " auto-wrap text, better comment formatting
