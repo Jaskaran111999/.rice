@@ -1,0 +1,8 @@
+window:
+  decorations: none
+  padding:
+    x: 10
+    y: 10
+
+import:
+  - ~/.config/rice/alacritty/dracula.yml
