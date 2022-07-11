@@ -12,5 +12,11 @@ shell:
     - -s
     - main
 
+key_bindings:
+  - {   key: F11,                       action: ToggleFULLScreen     }
+  - {   key: C,      mods: Control,     action: Copy                 }
+  - {   key: V,      mods: Control,     action: Paste                }
+  - {   key: I,      mods: Control,     action: ToggleViMode         }
+
 import:
   - ~/.config/rice/alacritty/dracula.yml
