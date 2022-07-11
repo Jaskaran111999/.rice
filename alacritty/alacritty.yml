@@ -3,6 +3,14 @@ window:
   padding:
     x: 10
     y: 10
+shell:
+  program: /usr/local/Cellar/tmux/3.3a/bin/tmux
+  args:
+    - new
+    - -A
+    - -D
+    - -s
+    - main
 
 import:
   - ~/.config/rice/alacritty/dracula.yml
