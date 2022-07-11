@@ -169,6 +169,9 @@ nnoremap Y y$
 " Turn off highlight manually
 nnoremap <silent><leader>m :nohlsearch<CR>:call minimap#vim#ClearColorSearch()<CR>
 
+" fzf for current directory
+nnoremap <leader>; :Files %:h<Cr>
+
 " }}}
 
 
