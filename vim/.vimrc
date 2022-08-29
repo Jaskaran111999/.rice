@@ -19,12 +19,18 @@ Plugin 'junegunn/fzf' "fuzzyfinder base plugin
 Plugin 'junegunn/fzf.vim' "fuzzyfinder plugin
 Plugin 'itchyny/lightline.vim' "replace statusline
 Plugin 'tpope/vim-surround' "plugin to help surround text with brackets
+Plugin 'tpope/vim-commentary' "plugin to comment stuff out
 Plugin 'tpope/vim-repeat' "plugin to repeat surround maps using '.'
+Plugin 'vim-scripts/ReplaceWithRegister' "plugin to copy stuff into register
+Plugin 'christoomey/vim-system-copy' "plugin to copy with indentation
+Plugin 'mattn/vim-textobj-url' "custom txt object
+Plugin 'kana/vim-textobj-user' "url txt object
 Plugin 'dracula/vim', {'name': 'dracula'} "use dracula colorscheme
 Plugin 'airblade/vim-gitgutter' "git-gutter vim 
 Plugin 'wfxr/minimap.vim' "blazing fast minimap
 Plugin 'hashivim/vim-terraform' "HCL syntax highlighting and tab completion
 Plugin 'ap/vim-css-color' "show colors for hex color values
+Plugin 'ryanoasis/vim-devicons' "devicons
 
 call vundle#end() " required
 
@@ -44,7 +50,9 @@ let g:lightline = {
     \   'right': [ [ 'filetype' ], [ 'gitstatus' ] ]
     \ },
     \ 'component_function': {
-    \   'gitstatus': 'GitStatus'
+    \   'gitstatus': 'GitStatus',
+    \   'filetype': 'MyFiletype',
+    \   'fileformat': 'MyFileformat',
     \ }
   \ }
 
@@ -206,6 +214,15 @@ autocmd FocusLost * call ToggleRelativeOn()
 autocmd FocusGained * call ToggleRelativeOn()
 autocmd InsertEnter * call ToggleRelativeOn()
 autocmd InsertLeave * call ToggleRelativeOn()
+
+" ======= DevIcons  =======
+function! MyFiletype()
+  return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
+endfunction
+
+function! MyFileformat()
+  return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
+endfunction
 
 " }}}
 
