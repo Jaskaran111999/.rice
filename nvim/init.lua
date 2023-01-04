@@ -142,6 +142,12 @@ set noshowmode "hide the old mode display
 
 --]]
 
+--vim.g.termguicolors = true
+--vim.g.dracula_colorterm = 1
+vim.g.default_terminal = "tmux-256color"
+-- let g:dracula_colorterm = 0
+-- let g:dracula_italic = 0
+require('jsingh')
 
 -- RICE
 
@@ -149,7 +155,7 @@ set noshowmode "hide the old mode display
 vim.opt.encoding = 'UTF-8' -- for vim devicons to work
 vim.opt.autoread = true -- Reload file changes outside vim
 vim.opt.autoindent = true
--- vim.opt.syntax = true
+vim.opt.syntax = "ON"
 vim.opt.complete = '.,w,b,u,t' --  scan all buffers and include tags
 vim.opt.display = 'lastline' --  display as much as possible of a line
 vim.opt.formatoptions= 'tcqj' --  auto-wrap text, better comment formatting
@@ -161,6 +167,8 @@ vim.opt.splitright = true -- open new split panes to the right and bottom
 -- vim.opt.list listchars=tab:\ \ ,eol:·,nbsp:+ -- display end of line with dots
 vim.opt.matchpairs = vim.opt.matchpairs + '<:>' -- HTML editing
 vim.opt.fillchars = vim.opt.fillchars + 'vert: '
+
+vim.opt.termguicolors = true
 
 --  ========= Scrolling =========
 vim.opt.ttyfast = true -- faster scrolling
@@ -198,6 +206,8 @@ vim.keymap.set('n', 'Y', 'y$', {desc = 'Yank from cursor to the end of line'})
 vim.keymap.set('n', '<Leader>m', ':nohlsearch<CR>', {desc = 'Turn off highlight manually'})
 -- nnoremap <silent><leader>m :nohlsearch<CR>:call minimap#vim#ClearColorSearch()<CR>
 
+vim.keymap.set('n', '<C-d', '<C-d>zz')
+vim.keymap.set('n', '<C-u', '<C-u>zz')
 vim.keymap.set('n', 'n', 'nzzzv', {desc = 'Center cursor vertically when searching zv to open fold'})
 vim.keymap.set('n', 'N', 'Nzzzv', {desc = 'Center cursor vertically when searching zv to open fold'})
 vim.keymap.set('n', 'J', 'mzJ`z')
@@ -206,10 +216,13 @@ vim.keymap.set('n', 'J', 'mzJ`z')
 -- nnoremap <expr> k (v:count > 5 ? "m'" . v:count : "") . 'k' -- jump list
 
 -- move lines up/down
-vim.keymap.set('n', '<Leader>j', ':m .+1<CR>==')
-vim.keymap.set('n', '<Leader>k', ':m .-2<CR>==')
-vim.keymap.set('v', '<Leader>j', ':m \'>+1<CR>gv=gv')
-vim.keymap.set('v', '<Leader>k', ':m \'>-2<CR>gv=gv')
+--vim.keymap.set('n', '<Leader>j', ':m .+1<CR>==')
+--vim.keymap.set('n', '<Leader>k', ':m .-2<CR>==')
+vim.keymap.set('v', '<Leader>j', ":m '>+1<CR>gv=gv")
+vim.keymap.set('v', '<Leader>k', ":m '<-2<CR>gv=gv")
+
+-- void paster buffer
+vim.keymap.set('x', '<Leader>p', '"_dP')
 
 -- fzf for current directory
 -- nnoremap <leader>; :Files %:h<Cr>
