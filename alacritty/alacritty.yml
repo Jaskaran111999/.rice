@@ -1,5 +1,5 @@
 shell:
-  program: /usr/local/Cellar/tmux/3.3a/bin/tmux
+  program: /usr/local/bin/tmux
   args:
     - new
     - -A
@@ -8,6 +8,7 @@ shell:
     - main
 
 window:
+  option_as_alt: Both
   decorations: none
   padding:
     x: 10
@@ -15,11 +16,20 @@ window:
 
 font:
   normal:
-    family: VictorMono Nerd Font
+    family: BitstromWera Nerd Font
     style: Regular
   size: 14
+  draw_bold_text_with_bright_colors: true
+
 
 live_config_reload: true
 
 import:
-  - ~/.config/rice/alacritty/dracula.yml
+  - ~/.config/rice/alacritty/nord.yml
+
+    #key_bindings:
+    #  - { key: L, mods: Alt, chars: "\x1bl" }
+    #  - { key: K, mods: Alt, chars: "\x1bk" }
+    #  - { key: J, mods: Alt, chars: "\x1bj" }
+    #  - { key: H, mods: Alt, chars: "\x1bh" }
+    #  - { key: Return, mods: Alt, chars: "\x1b\x0D" }

@@ -36,7 +36,7 @@ Plugin 'ryanoasis/vim-devicons' "devicons
 call vundle#end() " required
 
 " ========= Plugin configs =========
-colorscheme dracula
+ colorscheme dracula
 
 let g:dracula_colorterm = 0
 let g:dracula_italic = 0
@@ -144,7 +144,7 @@ set noshowmode "hide the old mode display
 
 --vim.g.termguicolors = true
 --vim.g.dracula_colorterm = 1
-vim.g.default_terminal = "tmux-256color"
+vim.g.default_terminal = "screen-256color"
 -- let g:dracula_colorterm = 0
 -- let g:dracula_italic = 0
 require('jsingh')
@@ -160,7 +160,7 @@ vim.opt.complete = '.,w,b,u,t' --  scan all buffers and include tags
 vim.opt.display = 'lastline' --  display as much as possible of a line
 vim.opt.formatoptions= 'tcqj' --  auto-wrap text, better comment formatting
 vim.opt.number = true -- turn line numbers on
-vim.opt.paste = true -- allows to paste into vim without ruining indentation
+--vim.opt.paste = true -- allows to paste into vim without ruining indentation
 vim.opt.numberwidth = 5 -- increase width of number column
 vim.opt.cursorline = true -- highlight the current line
 vim.opt.splitright = true -- open new split panes to the right and bottom
@@ -196,6 +196,7 @@ vim.opt.vb = true -- use visual terminal bell
 vim.opt.linebreak = true -- dont break words when wrapping lines
 vim.opt.showmatch = true -- highlight matching paired delimiter
 vim.opt.showcmd = true -- display incomplete commands
+vim.opt.showmode = false -- do not show old mode
 
 
 -- RE-MAPPINGS
