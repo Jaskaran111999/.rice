@@ -1,0 +1,30 @@
+import = [ "~/.config/rice/alacritty/nord.toml" ]
+
+[shell]
+program = "/usr/local/bin/tmux"
+args = [ "new", "-A", "-D", "-s", "main" ]
+
+[window]
+option_as_alt = "Both"
+decorations = "none"
+
+[window.padding]
+x = 10
+y = 10
+
+[font]
+size = 14
+#draw_bold_text_with_bright_colors = true
+
+[font.normal]
+family = "BitstromWera Nerd Font"
+style = "Regular"
+
+#[keyboard]
+#bindings = [
+# { key = "L", mods = "Alt", chars = "\x1bl" },
+# { key = "K", mods = "Alt", chars = "\x1bk" },
+# { key = "J", mods = "Alt", chars = "\x1bj" },
+# { key = "H", mods = "Alt", chars = "\x1bh" },
+# { key = "Return", mods = "Alt", chars = "\x1b\x0D" }
+#]
